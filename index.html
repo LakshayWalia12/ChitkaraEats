@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChitkaraEats | Campus Food Delivery</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f6f8;
+    color:#202124;
+    line-height:1.5;
+}
+a{text-decoration:none;color:inherit}
+.container{width:92%;max-width:1180px;margin:auto}
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:#fff;
+    border-bottom:1px solid #e5e5e5;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+.nav{
+    min-height:72px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+.logo{
+    font-size:25px;
+    font-weight:900;
+    color:#d32f2f;
+    white-space:nowrap;
+}
+.logo span{color:#151515}
+
+.location{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    background:#fafafa;
+    border:1px solid #ddd;
+    border-radius:25px;
+    padding:9px 12px;
+    font-size:13px;
+    font-weight:bold;
+}
+.location select{
+    border:0;
+    outline:0;
+    background:transparent;
+    font-weight:bold;
+    max-width:165px;
+}
+.search{
+    position:relative;
+    flex:1;
+}
+.search input{
+    width:100%;
+    padding:12px 18px 12px 42px;
+    border:1px solid #ddd;
+    border-radius:28px;
+    outline:0;
+    background:#f8f9fa;
+}
+.search-icon{
+    position:absolute;
+    left:15px;
+    top:9px;
+    font-size:20px;
+    color:#777;
+}
+.cart{
+    background:#d32f2f;
+    color:white;
+    padding:11px 17px;
+    border-radius:25px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+.hero{
+    background:linear-gradient(120deg,#111 0%,#271013 55%,#7b171d 100%);
+    color:white;
+    padding:65px 0;
+}
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:40px;
+    align-items:center;
+}
+.badge{
+    display:inline-block;
+    padding:7px 13px;
+    border:1px solid #e66;
+    color:#ffb5b5;
+    background:rgba(211,47,47,.15);
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+.hero h1{
+    font-size:clamp(38px,5vw,65px);
+    line-height:1.05;
+    margin:18px 0;
+}
+.hero p{
+    color:#d3d3d3;
+    font-size:17px;
+    max-width:650px;
+}
+.actions{
+    display:flex;
+    gap:12px;
+    margin:25px 0 30px;
+}
+.btn{
+    padding:13px 20px;
+    border-radius:28px;
+    font-weight:bold;
+}
+.primary{background:#d32f2f;color:#fff}
+.outline{border:1px solid #777;color:white}
+.stats{
+    display:flex;
+    gap:38px;
+    border-top:1px solid #333;
+    padding-top:22px;
+}
+.stat strong{
+    display:block;
+    color:#ffad2f;
+    font-size:21px;
+}
+.stat small{color:#aaa}
+.hero-art{
+    min-height:300px;
+    display:grid;
+    place-items:center;
+    position:relative;
+}
+.food-circle{
+    width:270px;
+    height:270px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:115px;
+    background:radial-gradient(circle at 35% 25%,#ffd18a,#f29a28 38%,#c53a29 70%,#581116);
+    box-shadow:0 25px 65px rgba(255,90,30,.25);
+}
+.float{
+    position:absolute;
+    background:white;
+    color:#222;
+    padding:10px 14px;
+    border-radius:13px;
+    font-size:12px;
+    font-weight:bold;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+.f1{top:35px;right:5px}
+.f2{bottom:30px;left:0}
+
+
+section{padding:58px 0}
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:22px;
+}
+.section-head h2{font-size:27px}
+.section-head p{color:#737373;font-size:14px}
+.red-link{color:#d32f2f;font-weight:bold}
+
+
+.categories{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:13px;
+}
+.category{
+    background:white;
+    border:1px solid #e4e4e4;
+    border-radius:17px;
+    padding:18px 7px;
+    text-align:center;
+    font-weight:bold;
+    transition:.2s;
+}
+.category:hover{
+    border-color:#d32f2f;
+    transform:translateY(-4px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+.category .emoji{
+    display:block;
+    font-size:31px;
+    margin-bottom:7px;
+}
+
+
+.outlets{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+.card{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 15px rgba(0,0,0,.04);
+    transition:.25s;
+}
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 12px 30px rgba(0,0,0,.1);
+}
+.outlet-img{
+    height:155px;
+    display:grid;
+    place-items:center;
+    color:white;
+    font-size:65px;
+    position:relative;
+}
+.red-bg{background:linear-gradient(135deg,#e85d3a,#a91e25)}
+.brown-bg{background:linear-gradient(135deg,#aa7953,#482c22)}
+.green-bg{background:linear-gradient(135deg,#3e9b69,#166142)}
+.blue-bg{background:linear-gradient(135deg,#4b8edb,#183b76)}
+.time{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:rgba(0,0,0,.7);
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:11px;
+}
+.card-body{padding:16px}
+.title-row{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+}
+.title-row h3{font-size:17px}
+.rating{
+    background:#eaf7ed;
+    color:#19733b;
+    padding:3px 7px;
+    border-radius:6px;
+    font-size:11px;
+    font-weight:bold;
+}
+.muted{color:#777;font-size:13px}
+.info{margin:7px 0 13px}
+.card-foot{
+    display:flex;
+    justify-content:space-between;
+    border-top:1px dashed #ddd;
+    padding-top:12px;
+    font-size:11px;
+    color:#777;
+}
+.status{color:#218443;font-weight:bold}
+.menu-btn{
+    display:block;
+    text-align:center;
+    margin-top:14px;
+    padding:9px;
+    border-radius:9px;
+    background:#fff0f0;
+    color:#d32f2f;
+    font-weight:bold;
+    font-size:13px;
+}
+.menu-btn:hover{background:#d32f2f;color:white}
+
+/* PRODUCTS */
+.products{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+.product{
+    display:flex;
+    gap:14px;
+    padding:14px;
+}
+.product-img{
+    width:105px;
+    height:105px;
+    flex:none;
+    display:grid;
+    place-items:center;
+    border-radius:13px;
+    font-size:43px;
+    background:linear-gradient(135deg,#ffe0b2,#ffb74d);
+}
+.product:nth-child(2) .product-img{background:linear-gradient(135deg,#f7d6b5,#d89155)}
+.product:nth-child(3) .product-img{background:linear-gradient(135deg,#d8f5dc,#75c982)}
+.product:nth-child(4) .product-img{background:linear-gradient(135deg,#ffcdd2,#ef5350)}
+.product:nth-child(5) .product-img{background:linear-gradient(135deg,#d7ecff,#6ba9e8)}
+.product:nth-child(6) .product-img{background:linear-gradient(135deg,#fff4b8,#ffd54f)}
+.product h3{font-size:16px}
+.product p{font-size:12px;color:#777;margin:4px 0}
+.product-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:10px;
+}
+.price{font-weight:900}
+.add{
+    display:inline-block;
+    background:#d32f2f;
+    color:#fff;
+    padding:7px 11px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.why{background:#fff}
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+.feature{
+    padding:23px;
+    border:1px solid #e4e4e4;
+    border-radius:16px;
+}
+.feature-icon{font-size:31px}
+.feature h3{margin:9px 0 4px}
+.feature p{color:#777;font-size:13px}
+
+.how{background:#fff8f8}
+.steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+.step{text-align:center;padding:24px}
+.step-no{
+    width:46px;
+    height:46px;
+    margin:auto;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:#d32f2f;
+    color:white;
+    font-weight:bold;
+}
+.step h3{margin:12px 0 5px}
+.step p{color:#777;font-size:13px}
+
+
+.cart-check{display:none}
+.cart-panel{
+    position:fixed;
+    right:0;
+    top:0;
+    width:min(420px,100%);
+    height:100vh;
+    background:#fff;
+    z-index:100;
+    padding:24px;
+    box-shadow:-10px 0 30px rgba(0,0,0,.18);
+    transform:translateX(105%);
+    transition:.3s;
+    overflow:auto;
+}
+.cart-check:checked ~ .cart-panel{transform:translateX(0)}
+.cart-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:90;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s;
+}
+.cart-check:checked ~ .cart-overlay{
+    opacity:1;
+    pointer-events:auto;
+}
+.cart-head{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid #ddd;
+    padding-bottom:15px;
+}
+.close{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:#eee;
+    display:grid;
+    place-items:center;
+    cursor:pointer;
+}
+.cart-demo{
+    padding:30px 0;
+}
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid #eee;
+}
+.checkout{
+    display:block;
+    margin-top:25px;
+    width:100%;
+    background:#d32f2f;
+    color:#fff;
+    text-align:center;
+    padding:13px;
+    border-radius:11px;
+    font-weight:bold;
+}
+
+
+footer{
+    background:#111;
+    color:#aaa;
+    padding:45px 0 20px;
+}
+.footer-grid{
+    display:grid;
+    grid-template-columns:1.5fr repeat(3,1fr);
+    gap:35px;
+}
+footer h3,footer h4{color:white;margin-bottom:12px}
+footer p,footer li{
+    list-style:none;
+    font-size:12px;
+    line-height:2;
+}
+footer a:hover{color:white}
+.copyright{
+    text-align:center;
+    border-top:1px solid #2d2d2d;
+    margin-top:30px;
+    padding-top:18px;
+    font-size:11px;
+}
+
+
+@media(max-width:950px){
+    .nav{flex-wrap:wrap;padding:12px 0}
+    .search{order:4;flex-basis:100%}
+    .categories{grid-template-columns:repeat(3,1fr)}
+    .outlets{grid-template-columns:repeat(2,1fr)}
+    .products{grid-template-columns:repeat(2,1fr)}
+    .hero-grid{grid-template-columns:1fr}
+    .hero-art{display:none}
+}
+@media(max-width:650px){
+    .container{width:94%}
+    .logo{font-size:21px}
+    .location{flex:1}
+    .location select{max-width:120px}
+    .hero{padding:45px 0}
+    .hero h1{font-size:38px}
+    .stats{gap:15px;justify-content:space-between}
+    .stat strong{font-size:16px}
+    .stat small{font-size:9px}
+    .categories{grid-template-columns:repeat(2,1fr)}
+    .outlets,.products,.features,.steps,.footer-grid{grid-template-columns:1fr}
+    .section-head{align-items:flex-start}
+}
+.add-btn{border:0;cursor:pointer}.cart{border:0;cursor:pointer;font-family:inherit}.checkout{font-family:inherit}.qty-btn{border:1px solid #ddd;background:#f5f5f5;border-radius:6px;padding:2px 7px;cursor:pointer}\n</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+<div class="container nav">
+
+<a href="#" class="logo">Chitkara<span>Eats</span></a>
+
+<div class="location">
+📍 <span>Deliver to:</span>
+<select id="deliveryLocation">
+<optgroup label="Boys Hostels">
+<option>Alfred Nobel Hostel</option>
+<option>Archimedies Hostel</option>
+<option>Aristotle Hostel</option>
+<option>Armstrong Hostel</option>
+<option>Franklin Hostel</option>
+</optgroup>
+<optgroup label="Girls Hostels">
+<option>PI Hostel</option>
+<option>NGH Hostel</option>
+<option>Colombus Hostel</option>
+</optgroup>
+<optgroup label="Academic Blocks">
+<option>Turing Block (CSE)</option>
+<option>Galileo Block</option>
+<option>Exploretorium</option>
+<option>Newton Block</option>
+<option>Sportorium</option>
+</optgroup>
+</select>
+</div>
+
+<div class="search">
+<span class="search-icon">⌕</span>
+<input id="searchInput" type="text" placeholder="Search Maggi, Cold Coffee, Rolls, Stationery...">
+</div>
+
+<button type="button" class="cart" id="cartButton">🛒 Cart (<span id="cartCount">0</span>)</button>
+
+</div>
+</header>
+
+<section class="hero">
+<div class="container hero-grid">
+
+<div>
+<span class="badge">EXCLUSIVE TO CHITKARA PUNJAB CAMPUS</span>
+<h1>Late night cravings? We deliver right to your hostel gate.</h1>
+<p>Order your favourite food, drinks and study essentials from campus outlets without leaving your hostel.</p>
+
+<div class="actions">
+<a href="#menu" class="btn primary">Order Now →</a>
+<a href="#outlets" class="btn outline">Explore Outlets</a>
+</div>
+
+<div class="stats">
+<div class="stat"><strong>15–20 min</strong><small>Average Delivery</small></div>
+<div class="stat"><strong>10+</strong><small>Campus Outlets</small></div>
+<div class="stat"><strong>24 Hr</strong><small>Square One Open</small></div>
+</div>
+</div>
+
+<div class="hero-art">
+<div class="food-circle">🍔</div>
+<div class="float f1">⚡ Fast Campus Delivery</div>
+<div class="float f2">🎓 Student Friendly Prices</div>
+</div>
+
+</div>
+</section>
+
+
+<section id="categories">
+<div class="container">
+<div class="section-head">
+<div><h2>Quick Categories</h2><p>Find exactly what you are craving</p></div>
+<a href="#menu" class="red-link">See All</a>
+</div>
+
+<div class="categories">
+<a href="#menu" class="category"><span class="emoji">☕</span>Chai & Coffee</a>
+<a href="#menu" class="category"><span class="emoji">🌯</span>Kathi Rolls</a>
+<a href="#menu" class="category"><span class="emoji">🍜</span>Late Night Maggi</a>
+<a href="#menu" class="category"><span class="emoji">🍔</span>Burgers & Meals</a>
+<a href="#menu" class="category"><span class="emoji">🥤</span>Shakes & Drinks</a>
+<a href="#menu" class="category"><span class="emoji">📝</span>Stationery & Print</a>
+</div>
+</div>
+</section>
+
+
+<section id="outlets">
+<div class="container">
+<div class="section-head">
+<div><h2>Popular Campus Spots</h2><p>Student favourites around campus</p></div>
+<a href="#menu" class="red-link">View Menu</a>
+</div>
+
+<div class="outlets">
+
+<article class="card">
+<div class="outlet-img red-bg">🍕<span class="time">15–20 min</span></div>
+<div class="card-body">
+<div class="title-row"><h3>Punjab 13</h3><span class="rating">★ 4.6</span></div>
+<p class="muted info">📍 Square One<br>North Indian, Chinese, Pastas</p>
+<div class="card-foot"><span>₹50 minimum</span><span class="status">● Open Now</span></div>
+<a href="#menu" class="menu-btn">View Menu</a>
+</div>
+</article>
+
+<article class="card">
+<div class="outlet-img brown-bg">☕<span class="time">10–15 min</span></div>
+<div class="card-body">
+<div class="title-row"><h3>Chai Nagri</h3><span class="rating">★ 4.8</span></div>
+<p class="muted info">📍 Square One<br>Kulhad Chai, Bun Maska, Samosa</p>
+<div class="card-foot"><span>₹30 minimum</span><span class="status">● Open Now</span></div>
+<a href="#menu" class="menu-btn">View Menu</a>
+</div>
+</article>
+
+<article class="card">
+<div class="outlet-img green-bg">🌯<span class="time">20–25 min</span></div>
+<div class="card-body">
+<div class="title-row"><h3>Healthy Wave</h3><span class="rating">★ 4.5</span></div>
+<p class="muted info">📍 Square One<br>Paneer, Egg & Chicken Rolls</p>
+<div class="card-foot"><span>₹60 minimum</span><span class="status">● Open Now</span></div>
+<a href="#menu" class="menu-btn">View Menu</a>
+</div>
+</article>
+
+<article class="card">
+<div class="outlet-img blue-bg">🌙<span class="time">15 min</span></div>
+<div class="card-body">
+<div class="title-row"><h3>Tuck Shop</h3><span class="rating">★ 4.7</span></div>
+<p class="muted info">📍 Near Square One<br>Biscuits, Chips, Midnight Maggi</p>
+<div class="card-foot"><span>Open till 2 AM</span><span class="status">● Active</span></div>
+<a href="#menu" class="menu-btn">View Menu</a>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<section id="menu">
+<div class="container">
+<div class="section-head">
+<div><h2>Popular Picks</h2><p>Fresh food, snacks and essentials</p></div>
+</div>
+
+<div class="products">
+
+<article class="card product" data-name="Classic Maggi" data-price="50">
+<div class="product-img">🍜</div>
+<div>
+<h3>Classic Maggi</h3>
+<p>Classic masala noodles</p>
+<div class="product-bottom"><span class="price">₹50</span><button type="button" class="add add-btn">+ Add</button></div>
+</div>
+</article>
+
+<article class="card product" data-name="Cheese Maggi" data-price="70">
+<div class="product-img">🧀</div>
+<div>
+<h3>Cheese Maggi</h3>
+<p>Creamy cheesy Maggi</p>
+<div class="product-bottom"><span class="price">₹70</span><button type="button" class="add add-btn">+ Add</button></div>
+</div>
+</article>
+
+<article class="card product" data-name="Masala Maggi" data-price="60">
+<div class="product-img">🍜</div>
+<div>
+<h3>Masala Maggi</h3>
+<p>Spicy campus favourite</p>
+<div class="product-bottom"><span class="price">₹60</span><button type="button" class="add add-btn">+ Add</button></div>
+</div>
+</article>
+
+<article class="card product" data-name="Kulhad Chai" data-price="30">
+<div class="product-img">☕</div>
+<div>
+<h3>Kulhad Chai</h3>
+<p>Hot chai in a kulhad</p>
+<div class="product-bottom"><span class="price">₹30</span><button type="button" class="add add-btn">+ Add</button></div>
+</div>
+</article>
+
+<article class="card product" data-name="Cold Coffee" data-price="80">
+<div class="product-img">🥤</div>
+<div>
+<h3>Cold Coffee</h3>
+<p>Chilled creamy coffee</p>
+<div class="product-bottom"><span class="price">₹80</span><button type="button" class="add add-btn">+ Add</button></div>
+</div>
+</article>
+
+<article class="card product" data-name="Paneer Roll" data-price="90">
+<div class="product-img">🌯</div>
+<div>
+<h3>Paneer Roll</h3>
+<p>Spicy paneer wrap</p>
+<div class="product-bottom"><span class="price">₹90</span><button type="button" class="add add-btn">+ Add</button></div>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+
+<section class="why">
+<div class="container">
+<div class="section-head">
+<div><h2>Why Students Love ChitkaraEats</h2><p>Made for campus life</p></div>
+</div>
+
+<div class="features">
+<div class="feature"><span class="feature-icon">⚡</span><h3>Fast Campus Delivery</h3><p>Get your food delivered around campus in just 15–20 minutes.</p></div>
+<div class="feature"><span class="feature-icon">💰</span><h3>Zero Delivery Fee</h3><p>Student-first pricing with no unnecessary delivery charges.</p></div>
+<div class="feature"><span class="feature-icon">🌙</span><h3>Late Night Food</h3><p>Cravings after midnight? Tuck shop and night food have you covered.</p></div>
+<div class="feature"><span class="feature-icon">📍</span><h3>Hostel Delivery</h3><p>Choose your hostel or academic block for convenient delivery.</p></div>
+<div class="feature"><span class="feature-icon">🎓</span><h3>Student Friendly Prices</h3><p>Affordable options designed around a student's budget.</p></div>
+<div class="feature"><span class="feature-icon">🛍️</span><h3>Food + Stationery</h3><p>Order food and study essentials from one convenient platform.</p></div>
+</div>
+</div>
+</section>
+
+
+<section class="how">
+<div class="container">
+<div class="section-head">
+<div><h2>How Hostel Delivery Works</h2><p>Three simple steps</p></div>
+</div>
+
+<div class="steps">
+<div class="step"><div class="step-no">1</div><h3>Pick Your Hostel</h3><p>Select your hostel or campus block from the top bar.</p></div>
+<div class="step"><div class="step-no">2</div><h3>Order Food & Needs</h3><p>Choose snacks, meals, drinks or stationery.</p></div>
+<div class="step"><div class="step-no">3</div><h3>Receive at Gate</h3><p>Get your order delivered to your selected location.</p></div>
+</div>
+</div>
+</section>
+
+
+<footer>
+<div class="container">
+<div class="footer-grid">
+<div>
+<h3>ChitkaraEats</h3>
+<p>Built by students, for students. Fast meals and study essentials across Chitkara University campus.</p>
+</div>
+<div>
+<h4>Hostel Zones</h4>
+<ul>
+<li>Alfred Nobel</li><li>Archimedies</li><li>Aristotle</li><li>PI & NGH</li>
+</ul>
+</div>
+<div>
+<h4>Popular Outlets</h4>
+<ul>
+<li>Square One</li><li>Chai Nagri</li><li>Healthy Wave</li><li>Tuck Shop</li>
+</ul>
+</div>
+<div>
+<h4>Help & Support</h4>
+<ul>
+<li><a href="#">Student Support Chat</a></li>
+<li><a href="#">Become a Delivery Runner</a></li>
+<li><a href="#">Outlet Partner Login</a></li>
+</ul>
+</div>
+</div>
+<div class="copyright">© 2026 ChitkaraEats • Independent Student Delivery Network • Chitkara University, Punjab</div>
+</div>
+</footer>
+
+  
+
+
+<div class="cart-panel">
+<div class="cart-head">
+<h2>Your Cart 🛒</h2>
+<label for="cart" class="close">✕</label>
+</div>
+
+<div class="cart-demo">
+<div id="cartItems"></div>
+<div id="emptyCart" style="padding:25px 0;text-align:center;color:#777">
+    Your cart is empty. Add something delicious! 🍜
+</div>
+<div id="cartSummary" style="display:none">
+    <br>
+    <p>Subtotal <strong style="float:right" id="subtotal">₹0</strong></p>
+    <p>Delivery Fee <strong style="float:right;color:#198754">₹0</strong></p>
+    <p>Student Discount <strong style="float:right;color:#d32f2f" id="discount">-₹0</strong></p>
+    <hr style="margin:15px 0">
+    <p style="font-size:18px"><strong>Total</strong><strong style="float:right" id="total">₹0</strong></p>
+    <button type="button" class="checkout" id="checkoutButton" style="border:0;cursor:pointer">Proceed to Checkout</button>
+</div>
+</div>
+</div>
+
+<label for="cart" class="cart-overlay"></label>
+
+<!-- SIMPLE CHECKOUT -->
+<section id="checkout-section" style="background:#fff">
+<div class="container" style="max-width:700px">
+<div class="section-head">
+<div><h2>Checkout</h2><p>Enter your campus delivery details</p></div>
+</div>
+
+<div style="display:grid;gap:14px">
+<input id="studentName" type="text" placeholder="Student Name" style="padding:13px;border:1px solid #ddd;border-radius:9px">
+<input id="mobileNumber" type="tel" placeholder="Mobile Number" style="padding:13px;border:1px solid #ddd;border-radius:9px">
+<input id="roomNumber" type="text" placeholder="Room Number" style="padding:13px;border:1px solid #ddd;border-radius:9px">
+<textarea id="instructions" placeholder="Special Instructions" rows="4" style="padding:13px;border:1px solid #ddd;border-radius:9px;resize:vertical"></textarea>
+
+<select style="padding:13px;border:1px solid #ddd;border-radius:9px">
+<option>Cash on Delivery</option>
+<option>UPI</option>
+<option>Campus Wallet</option>
+</select>
+
+<button type="button" id="placeOrder" class="checkout" style="border:0;cursor:pointer">Place Order</button>
+</div>
+</div>
+</section>
+
+
+<section id="order-confirmed" style="background:#fff8f8;text-align:center">
+<div class="container">
+<h2 style="font-size:34px">🎉 Order Confirmed!</h2>
+<p style="margin:10px 0;color:#666">Your order has been successfully placed.</p>
+<div style="max-width:500px;margin:25px auto;background:#fff;border:1px solid #eee;border-radius:18px;padding:25px;text-align:left">
+<p><strong>Order ID:</strong> <span id="orderId">#CE1024</span></p>
+<p><strong>Estimated Delivery:</strong> 15–20 minutes</p>
+<p><strong>Delivery Location:</strong> <span id="confirmedLocation">Selected Hostel</span></p>
+<hr style="margin:18px 0">
+<p>✓ Order Confirmed</p>
+<p>✓ Preparing Food</p>
+<p style="color:#d32f2f;font-weight:bold">→ Out for Delivery</p>
+<p style="color:#aaa">○ Delivered</p>
+</div>
+<a href="#menu" class="btn primary">Continue Shopping</a>
+</div>
+</section>
+
+<div id="cart-message"></div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const cart = {};
+    const products = [...document.querySelectorAll(".product")];
+    const panel = document.querySelector(".cart-panel");
+    const overlay = document.querySelector(".cart-overlay");
+
+    function openCart() {
+        panel.style.transform = "translateX(0)";
+        overlay.style.opacity = "1";
+        overlay.style.pointerEvents = "auto";
+    }
+
+    function closeCart() {
+        panel.style.transform = "translateX(105%)";
+        overlay.style.opacity = "0";
+        overlay.style.pointerEvents = "none";
+    }
+
+    document.getElementById("cartButton").addEventListener("click", openCart);
+    overlay.addEventListener("click", closeCart);
+    document.querySelector(".close").addEventListener("click", closeCart);
+
+    document.querySelectorAll(".add-btn").forEach(function (button) {
+        button.addEventListener("click", function () {
+            const card = button.closest(".product");
+            const name = card.dataset.name;
+            const price = Number(card.dataset.price);
+
+            if (!cart[name]) cart[name] = {price: price, qty: 0};
+            cart[name].qty++;
+            updateCart();
+            toast(name + " added to cart ✓");
+        });
+    });
+
+    function updateCart() {
+        const box = document.getElementById("cartItems");
+        const empty = document.getElementById("emptyCart");
+        const summary = document.getElementById("cartSummary");
+
+        box.innerHTML = "";
+        let count = 0;
+        let subtotal = 0;
+
+        Object.keys(cart).forEach(function (name) {
+            const item = cart[name];
+            count += item.qty;
+            subtotal += item.price * item.qty;
+
+            const row = document.createElement("div");
+            row.className = "cart-item";
+            row.innerHTML =
+                "<span>" + name + " × " + item.qty + "</span>" +
+                "<strong>₹" + (item.price * item.qty) + "</strong>" +
+                "<div style='display:flex;gap:5px'>" +
+                "<button class='qty-btn' data-name='" + name + "' data-action='minus'>−</button>" +
+                "<button class='qty-btn' data-name='" + name + "' data-action='plus'>+</button>" +
+                "</div>";
+            box.appendChild(row);
+        });
+
+        document.getElementById("cartCount").textContent = count;
+        empty.style.display = count ? "none" : "block";
+        summary.style.display = count ? "block" : "none";
+
+        if (count) {
+            const discount = subtotal >= 150 ? 20 : 0;
+            document.getElementById("subtotal").textContent = "₹" + subtotal;
+            document.getElementById("discount").textContent = "-₹" + discount;
+            document.getElementById("total").textContent = "₹" + (subtotal - discount);
+        }
+
+        document.querySelectorAll(".qty-btn").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                const name = btn.dataset.name;
+                if (btn.dataset.action === "plus") {
+                    cart[name].qty++;
+                } else {
+                    cart[name].qty--;
+                    if (cart[name].qty <= 0) delete cart[name];
+                }
+                updateCart();
+            });
+        });
+    }
+
+    // Live search.
+    document.getElementById("searchInput").addEventListener("input", function () {
+        const query = this.value.toLowerCase().trim();
+        products.forEach(function (product) {
+            product.style.display =
+                product.innerText.toLowerCase().includes(query) ? "" : "none";
+        });
+    });
+
+    // Proceed to checkout.
+    document.getElementById("checkoutButton").addEventListener("click", function () {
+        if (Object.keys(cart).length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+        closeCart();
+        document.getElementById("checkout-section")
+            .scrollIntoView({behavior: "smooth"});
+    });
+
+    // Place order.
+    document.getElementById("placeOrder").addEventListener("click", function () {
+        const name = document.getElementById("studentName").value.trim();
+        const mobile = document.getElementById("mobileNumber").value.trim();
+        const room = document.getElementById("roomNumber").value.trim();
+
+        if (!name || !mobile || !room) {
+            alert("Please fill Student Name, Mobile Number and Room Number.");
+            return;
+        }
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        const orderId = "#CE" + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById("orderId").textContent = orderId;
+        document.getElementById("confirmedLocation").textContent =
+            document.getElementById("deliveryLocation").value + " • Room " + room;
+
+        document.getElementById("order-confirmed")
+            .scrollIntoView({behavior: "smooth"});
+
+        alert("Order placed successfully! 🎉");
+
+        Object.keys(cart).forEach(function (key) { delete cart[key]; });
+        updateCart();
+    });
+
+    document.getElementById("deliveryLocation").addEventListener("change", function () {
+        toast("Delivery location: " + this.value);
+    });
+
+    function toast(message) {
+        let t = document.getElementById("toast");
+        if (!t) {
+            t = document.createElement("div");
+            t.id = "toast";
+            t.style.cssText =
+                "position:fixed;bottom:25px;left:50%;transform:translateX(-50%);" +
+                "background:#111;color:#fff;padding:12px 18px;border-radius:10px;" +
+                "z-index:9999;font-weight:bold";
+            document.body.appendChild(t);
+        }
+        t.textContent = message;
+        t.style.display = "block";
+        clearTimeout(window.toastTimer);
+        window.toastTimer = setTimeout(function () {
+            t.style.display = "none";
+        }, 1600);
+    }
+
+    updateCart();
+});
+</script>
+
+</body>
+</html>
