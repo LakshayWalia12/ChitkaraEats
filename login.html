@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ChitkaraEats | Student Login</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #111, #2a1114, #7b171d);
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    color: #202124;
+}
+
+.login-wrap {
+    width: min(920px, 100%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .35);
+}
+
+.brand {
+    background: linear-gradient(145deg, #151515, #5d1218);
+    color: #fff;
+    padding: 55px 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logo {
+    font-size: 34px;
+    font-weight: 900;
+    color: #ff4b4b;
+}
+
+.logo span {
+    color: #fff;
+}
+
+.brand h1 {
+    font-size: 42px;
+    line-height: 1.05;
+    margin: 25px 0 15px;
+}
+
+.brand p {
+    color: #ddd;
+    line-height: 1.7;
+}
+
+.points {
+    margin-top: 25px;
+    display: grid;
+    gap: 12px;
+}
+
+.point {
+    background: rgba(255,255,255,.08);
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.form-area {
+    padding: 45px;
+}
+
+.form-area h2 {
+    font-size: 29px;
+    margin-bottom: 7px;
+}
+
+.sub {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.field {
+    margin-bottom: 15px;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.field input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+}
+
+.field input:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 0 0 3px rgba(211,47,47,.1);
+}
+
+.login-btn {
+    width: 100%;
+    border: 0;
+    background: #d32f2f;
+    color: #fff;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.login-btn:hover {
+    background: #b71c1c;
+}
+
+.demo {
+    margin-top: 17px;
+    padding: 12px;
+    background: #fff7f7;
+    border: 1px solid #ffd4d4;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+.error {
+    display: none;
+    color: #c62828;
+    background: #fff0f0;
+    border: 1px solid #ffcaca;
+    padding: 10px;
+    border-radius: 9px;
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+@media(max-width:700px) {
+
+    .login-wrap {
+        grid-template-columns: 1fr;
+    }
+
+    .brand {
+        padding: 30px;
+    }
+
+    .brand h1 {
+        font-size: 32px;
+    }
+
+    .form-area {
+        padding: 30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-wrap">
+
+    <div class="brand">
+
+        <div class="logo">
+            Chitkara<span>Eats</span>
+        </div>
+
+        <h1>
+            Campus food, just a login away. 🍔
+        </h1>
+
+        <p>
+            Login with your student details and order food,
+            drinks and study essentials directly to your hostel gate.
+        </p>
+
+        <div class="points">
+
+            <div class="point">
+                ⚡ Fast 15–20 min campus delivery
+            </div>
+
+            <div class="point">
+                🎓 Student-friendly prices
+            </div>
+
+            <div class="point">
+                🌙 Late-night food available
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-area">
+
+        <h2>Student Login</h2>
+
+        <p class="sub">
+            Enter your ChitkaraEats account details
+        </p>
+
+        <div id="error" class="error"></div>
+
+
+        <form id="loginForm">
+
+            <div class="field">
+                <label>Roll Number</label>
+
+                <input
+                    id="rollNo"
+                    type="text"
+                    placeholder="e.g. 2410999999"
+                    required
+                >
+            </div>
+
+
+            <div class="field">
+                <label>Student Name</label>
+
+                <input
+                    id="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    required
+                >
+            </div>
+
+
+            <div class="field">
+                <label>Phone Number</label>
+
+                <input
+                    id="phone"
+                    type="tel"
+                    inputmode="numeric"
+                    maxlength="10"
+                    placeholder="10-digit mobile number"
+                    required
+                >
+            </div>
+
+
+            <div class="field">
+                <label>Password</label>
+
+                <input
+                    id="password"
+                    type="password"
+                    placeholder="Enter password"
+                    required
+                >
+            </div>
+
+
+            <button class="login-btn" type="submit">
+                Login to ChitkaraEats →
+            </button>
+
+        </form>
+
+
+        <div class="demo">
+            You can enter any valid-looking roll number,
+            name, 10-digit phone number and a password.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    // If already logged in, directly open website
+    if (sessionStorage.getItem("chitkaraEatsLoggedIn") === "true") {
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+
+    // Login form
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+
+        const roll = document.getElementById("rollNo").value.trim();
+
+        const name = document.getElementById("name").value.trim();
+
+        const phone = document.getElementById("phone").value.trim();
+
+        const password = document.getElementById("password").value;
+
+        const error = document.getElementById("error");
+
+
+        // Hide previous error
+        error.style.display = "none";
+
+
+        // Check empty fields
+        if (!roll || !name || !phone || !password) {
+
+            error.textContent = "Please fill all fields.";
+
+            error.style.display = "block";
+
+            return;
+        }
+
+
+        // Check phone number
+        if (!/^[0-9]{10}$/.test(phone)) {
+
+            error.textContent =
+                "Please enter a valid 10-digit phone number.";
+
+            error.style.display = "block";
+
+            return;
+        }
+
+
+        // Check password
+        if (password.length < 6) {
+
+            error.textContent =
+                "Password must be at least 6 characters.";
+
+            error.style.display = "block";
+
+            return;
+        }
+
+
+        // Save login status
+        sessionStorage.setItem(
+            "chitkaraEatsLoggedIn",
+            "true"
+        );
+
+
+        // Save student information
+        sessionStorage.setItem(
+            "chitkaraEatsStudent",
+            JSON.stringify({
+                rollNo: roll,
+                name: name,
+                phone: phone
+            })
+        );
+
+
+        window.location.href = "index.html";
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

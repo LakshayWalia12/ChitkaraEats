@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | ChitkaraEats</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box}
+html{
+    scroll-behavior:smooth
+}
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f6f8;
+    color:#202124;
+    line-height:1.5;
+}
+a{
+    text-decoration:none;
+    color:inherit
+}
+.container{
+    width:92%;
+    max-width:1180px;
+    margin:auto}
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:#fff;
+    border-bottom:1px solid #e5e5e5;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
+.nav{
+    min-height:72px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+.logo{
+    font-size:25px;
+    font-weight:900;
+    color:#d32f2f;
+    white-space:nowrap;
+}
+.logo span{
+    color:#151515
+}
+.back-link{
+    font-size:13px;
+    font-weight:bold;
+    color:#555;
+}
+.back-link:hover{color:#d32f2f}
+.account{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:bold;margin-left:auto}
+.account button{border:0;background:#111;color:#fff;padding:9px 12px;border-radius:20px;cursor:pointer}
+
+section{padding:58px 0}
+.section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:22px;
+}
+.section-head h2{font-size:27px}
+.section-head p{color:#737373;font-size:14px}
+
+.checkout-wrap{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:30px;
+    align-items:start;
+}
+
+.card-box{
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:18px;
+    padding:24px;
+}
+
+.order-summary .cart-item{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+.checkout{
+    display:block;
+    margin-top:25px;
+    width:100%;
+    background:#d32f2f;
+    color:#fff;
+    text-align:center;
+    padding:13px;
+    border-radius:11px;
+    font-weight:bold;
+    border:0;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:14px;
+}
+
+footer{
+    background:#111;
+    color:#aaa;
+    padding:45px 0 20px;
+}
+.copyright{
+    text-align:center;
+    border-top:1px solid #2d2d2d;
+    margin-top:30px;
+    padding-top:18px;
+    font-size:11px;
+}
+
+@media(max-width:800px){
+    .checkout-wrap{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+    .container{width:94%}
+    .logo{font-size:21px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+<div class="container nav">
+<a href="index.html" class="logo">Chitkara<span>Eats</span></a>
+<a href="index.html" class="back-link">← Back to Menu</a>
+<div class="account"><span id="loggedStudent">Student</span><button type="button" id="logoutButton">Logout</button></div>
+</div>
+</header>
+
+<section id="checkout-section">
+<div class="container">
+<div class="section-head">
+<div><h2>Checkout</h2><p>Enter your campus delivery details</p></div>
+</div>
+
+<div class="checkout-wrap">
+
+<div class="card-box">
+<div style="display:grid;gap:14px">
+<input id="studentName" type="text" placeholder="Student Name" style="padding:13px;border:1px solid #ddd;border-radius:9px">
+<input id="mobileNumber" type="tel" placeholder="Mobile Number" style="padding:13px;border:1px solid #ddd;border-radius:9px">
+<input id="roomNumber" type="text" placeholder="Room Number" style="padding:13px;border:1px solid #ddd;border-radius:9px">
+<textarea id="instructions" placeholder="Special Instructions" rows="4" style="padding:13px;border:1px solid #ddd;border-radius:9px;resize:vertical"></textarea>
+
+<select id="paymentMethod" style="padding:13px;border:1px solid #ddd;border-radius:9px">
+<option>Cash on Delivery</option>
+<option>UPI</option>
+<option>Campus Wallet</option>
+</select>
+
+<button type="button" id="placeOrder" class="checkout">Place Order</button>
+</div>
+</div>
+
+<div class="card-box order-summary">
+<h3 style="margin-bottom:12px">Order Summary</h3>
+<div id="cartItems"></div>
+<div id="emptyCart" style="padding:15px 0;text-align:center;color:#777">
+    Your cart is empty. <a href="index.html" style="color:#d32f2f;font-weight:bold">Go back and add something 🍜</a>
+</div>
+<div id="cartSummary" style="display:none">
+    <br>
+    <p>Subtotal <strong style="float:right" id="subtotal">₹0</strong></p>
+    <p>Delivery Fee <strong style="float:right;color:#198754">₹0</strong></p>
+    <p>Student Discount <strong style="float:right;color:#d32f2f" id="discount">-₹0</strong></p>
+    <hr style="margin:15px 0">
+    <p style="font-size:18px"><strong>Total</strong><strong style="float:right" id="total">₹0</strong></p>
+    <p class="muted" style="margin-top:10px;font-size:12px;color:#777">📍 Delivering to: <strong id="deliveryLocDisplay">—</strong></p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section id="order-confirmed" style="background:#fff8f8;text-align:center;display:none">
+<div class="container">
+<h2 style="font-size:34px">🎉 Order Confirmed!</h2>
+<p style="margin:10px 0;color:#666">Your order has been successfully placed.</p>
+<div style="max-width:500px;margin:25px auto;background:#fff;border:1px solid #eee;border-radius:18px;padding:25px;text-align:left">
+<p><strong>Order ID:</strong> <span id="orderId">#CE1024</span></p>
+<p><strong>Estimated Delivery:</strong> 15–20 minutes</p>
+<p><strong>Delivery Location:</strong> <span id="confirmedLocation">Selected Hostel</span></p>
+<hr style="margin:18px 0">
+<p>✓ Order Confirmed</p>
+<p>✓ Preparing Food</p>
+<p style="color:#d32f2f;font-weight:bold">→ Out for Delivery</p>
+<p style="color:#aaa">○ Delivered</p>
+</div>
+<a href="index.html" class="btn primary" style="display:inline-block;padding:13px 20px;border-radius:28px;font-weight:bold;background:#d32f2f;color:#fff">Continue Shopping</a>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<div class="copyright">© 2026 ChitkaraEats • Independent Student Delivery Network • Chitkara University, Punjab</div>
+</div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const loggedIn = sessionStorage.getItem("chitkaraEatsLoggedIn");
+    const student = JSON.parse(sessionStorage.getItem("chitkaraEatsStudent") || "null");
+    if (loggedIn !== "true" || !student) {
+        window.location.href = "index.html";
+        return;
+    }
+    document.getElementById("loggedStudent").textContent = "👤 " + student.name;
+    document.getElementById("logoutButton").addEventListener("click", function () {
+        sessionStorage.removeItem("chitkaraEatsLoggedIn");
+        sessionStorage.removeItem("chitkaraEatsStudent");
+        window.location.href = "index.html";
+    });
+
+    const cart = JSON.parse(sessionStorage.getItem("chitkaraEatsCart") || "{}");
+    const deliveryLocation = sessionStorage.getItem("chitkaraEatsDeliveryLocation") || "Selected Hostel";
+
+    function renderSummary() {
+        const box = document.getElementById("cartItems");
+        const empty = document.getElementById("emptyCart");
+        const summary = document.getElementById("cartSummary");
+        const placeOrderBtn = document.getElementById("placeOrder");
+
+        box.innerHTML = "";
+        let count = 0;
+        let subtotal = 0;
+
+        Object.keys(cart).forEach(function (name) {
+            const item = cart[name];
+            count += item.qty;
+            subtotal += item.price * item.qty;
+
+            const row = document.createElement("div");
+            row.className = "cart-item";
+            row.innerHTML =
+                "<span>" + name + " × " + item.qty + "</span>" +
+                "<strong>₹" + (item.price * item.qty) + "</strong>";
+            box.appendChild(row);
+        });
+
+        empty.style.display = count ? "none" : "block";
+        summary.style.display = count ? "block" : "none";
+        placeOrderBtn.disabled = count === 0;
+
+        if (count) {
+            const discount = subtotal >= 150 ? 20 : 0;
+            document.getElementById("subtotal").textContent = "₹" + subtotal;
+            document.getElementById("discount").textContent = "-₹" + discount;
+            document.getElementById("total").textContent = "₹" + (subtotal - discount);
+            document.getElementById("deliveryLocDisplay").textContent = deliveryLocation;
+        }
+    }
+
+
+    document.getElementById("placeOrder").addEventListener("click", function () {
+        if (Object.keys(cart).length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        const name = document.getElementById("studentName").value.trim();
+        const mobile = document.getElementById("mobileNumber").value.trim();
+        const room = document.getElementById("roomNumber").value.trim();
+
+        if (!name || !mobile || !room) {
+            alert("Please fill Student Name, Mobile Number and Room Number.");
+            return;
+        }
+
+        if (!/^[0-9]{10}$/.test(mobile)) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        const orderId = "#CE" + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById("orderId").textContent = orderId;
+        document.getElementById("confirmedLocation").textContent =
+            deliveryLocation + " • Room " + room;
+
+        document.getElementById("checkout-section").style.display = "none";
+        document.getElementById("order-confirmed").style.display = "block";
+        document.getElementById("order-confirmed").scrollIntoView({behavior: "smooth"});
+
+        alert("Order placed successfully! 🎉");
+
+        
+        sessionStorage.removeItem("chitkaraEatsCart");
+    });
+
+    renderSummary();
+});
+</script>
+
+</body>
+</html>
