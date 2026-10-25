@@ -516,6 +516,15 @@ footer a:hover{color:white}
         padding:2px 7px;
         cursor:pointer
     }
+    .no-results {
+    display: none;
+    text-align: center;
+    padding: 25px;
+    color: #777;
+    background: white;
+    border-radius: 12px;
+    margin-top: 15px;
+}
 </style>
 </head>
 
@@ -678,6 +687,11 @@ footer a:hover{color:white}
 <div class="section-head">
 <div><h2>Popular Picks</h2><p>Fresh food, snacks and essentials</p></div>
 </div>
+<div id="noResults" class="no-results">
+    <h3>🔍 No food items found</h3>
+    <p>Try searching for Maggi, Burger, Coffee or Rolls.</p>
+</div>
+
 
 <div class="products">
 
@@ -1006,13 +1020,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    document.getElementById("searchInput").addEventListener("input", function () {
-        const query = this.value.toLowerCase().trim();
-        products.forEach(function (product) {
-            product.style.display =
-                product.innerText.toLowerCase().includes(query) ? "" : "none";
-        });
+   document.getElementById("searchInput").addEventListener("input", function () {
+    const query = this.value.toLowerCase().trim();
+    let found = 0;
+
+    products.forEach(function (product) {
+        if (product.innerText.toLowerCase().includes(query)) {
+            product.style.display = "";
+            found++;
+        } else {
+            product.style.display = "none";
+        }
     });
+
+    const noResults = document.getElementById("noResults");
+
+    if (found === 0) {
+        noResults.style.display = "block";
+    } else {
+        noResults.style.display = "none";
+    }
+});
 
     // Proceed to checkout -> go to separate checkout page.
     document.getElementById("checkoutButton").addEventListener("click", function () {
