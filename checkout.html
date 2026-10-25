@@ -193,6 +193,10 @@ footer{
 <p style="margin:10px 0;color:#666">Your order has been successfully placed.</p>
 <div style="max-width:500px;margin:25px auto;background:#fff;border:1px solid #eee;border-radius:18px;padding:25px;text-align:left">
 <p><strong>Order ID:</strong> <span id="orderId">#CE1024</span></p>
+<p><strong>Student:</strong> <span id="confirmedStudent">—</span></p>
+<p><strong>Room:</strong> <span id="confirmedRoom">—</span></p>
+<p><strong>Payment:</strong> <span id="confirmedPayment">—</span></p>
+<p><strong>Instructions:</strong> <span id="confirmedInstructions">None</span></p>
 <p><strong>Estimated Delivery:</strong> 15–20 minutes</p>
 <p><strong>Delivery Location:</strong> <span id="confirmedLocation">Selected Hostel</span></p>
 <hr style="margin:18px 0">
@@ -220,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
     document.getElementById("loggedStudent").textContent = "👤 " + student.name;
+    document.getElementById("studentName").value = student.name;
     document.getElementById("logoutButton").addEventListener("click", function () {
         sessionStorage.removeItem("chitkaraEatsLoggedIn");
         sessionStorage.removeItem("chitkaraEatsStudent");
@@ -290,6 +295,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("orderId").textContent = orderId;
         document.getElementById("confirmedLocation").textContent =
             deliveryLocation + " • Room " + room;
+            document.getElementById("confirmedStudent").textContent = name;
+
+document.getElementById("confirmedRoom").textContent = room;
+
+document.getElementById("confirmedPayment").textContent =
+    document.getElementById("paymentMethod").value;
+
+document.getElementById("confirmedInstructions").textContent =
+    document.getElementById("instructions").value.trim() || "None";
 
         document.getElementById("checkout-section").style.display = "none";
         document.getElementById("order-confirmed").style.display = "block";
